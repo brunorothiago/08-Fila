@@ -59,7 +59,7 @@ void menu()
 void inicializar()
 {
 
-	// se a lista j� possuir elementos
+	// se a lista j� possuir elementos
 	// libera a memoria ocupada
 	NO* aux = inicio;
 	while (aux != NULL) {
@@ -77,24 +77,48 @@ void inicializar()
 
 void insere()
 {
-	// aloca memoria dinamicamente para o novo elemento
-	NO* novo = (NO*)malloc(sizeof(NO));
-	if (novo == NULL)
-	{
-		return;
-	}
+	// Aloca memória dinamicamente para o novo elemento
+    NO* novo = (NO*)malloc(sizeof(NO));
+    if (novo == NULL) {
+        return;
+    }
 
-	cout << "Digite o elemento: ";
-	cin >> novo->valor;
-	novo->prox = NULL;
+    cout << "Digite o elemento: ";
+    cin >> novo->valor;
+    novo->prox = NULL;
 
+    // Se a fila estiver vazia, o novo nó será tanto o início quanto o fim
+    if (inicio == NULL) {
+        inicio = novo;
+        fim = novo;
+    } else {
+        fim->prox = novo;
+        fim = novo;
+    }
 
+    cout << "Elemento inserido na fila\n";
 }
 
 void remove()
 {
+	    if (inicio == NULL) {
+        cout << "Fila Vazia\n";
+        return;
+    }
 
+    // Armazena o nó a ser removido
+    NO* paraExcluir = inicio;
+    cout << "Removendo elemento: " << inicio->valor << endl;
 
+    // Atualiza o início para o próximo elemento
+    inicio = inicio->prox;
 
+    // Libera a memória do nó removido
+    free(paraExcluir);
+
+    // Se o início for NULL após a remoção, significa que a fila ficou vazia
+    if (inicio == NULL) {
+        fim = NULL;
+    }
 }
 
